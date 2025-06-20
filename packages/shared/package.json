@@ -1,0 +1,27 @@
+{
+  "name": "@monorepo/shared",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types.js",
+      "types": "./dist/types.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target node --format esm && bun run type-check",
+    "type-check": "tsc --noEmit",
+    "dev": "bun build src/index.ts --outdir dist --target node --format esm --watch"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "~5.8.3"
+  }
+}
