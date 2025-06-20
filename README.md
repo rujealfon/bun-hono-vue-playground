@@ -1,203 +1,169 @@
-# Bun + Hono + Vue Playground
+# Bun + Hono + Vue Monorepo Playground
 
-A full-stack web application playground featuring:
+A modern monorepo setup using Bun workspaces, featuring a Hono API server and Vue.js client with shared TypeScript types and utilities.
 
-- **Frontend**: Vue 3 with TypeScript, Vue Router, Pinia, and Vite
-- **Backend**: Hono (lightweight web framework) running on Bun
-- **Runtime**: Bun for fast package management and execution
-
-## 📁 Project Structure
+## 🏗️ Monorepo Structure
 
 ```
 bun-hono-vue-playground/
-├── client/                 # Vue 3 frontend application
-│   ├── src/
-│   │   ├── components/     # Vue components
-│   │   ├── views/          # Vue route views
-│   │   ├── router/         # Vue Router configuration
-│   │   ├── stores/         # Pinia stores
-│   │   └── assets/         # Static assets
-│   ├── cypress/            # E2E tests
-│   └── package.json
-├── server/                 # Hono backend API
-│   ├── src/
-│   │   └── index.ts        # Main server entry point
-│   └── package.json
-└── package.json           # Root package with workspace scripts
+├── apps/
+│   ├── client/          # Vue.js frontend application
+│   └── server/          # Hono API server
+├── packages/
+│   └── shared/          # Shared types, utilities, and constants
+├── package.json         # Root workspace configuration
+└── README.md
 ```
 
-## 🚀 Quick Start
+## 📦 Workspaces
+
+- **`apps/client`** - Vue 3 + TypeScript + Vite frontend
+- **`apps/server`** - Hono API server with Bun runtime
+- **`packages/shared`** - Shared TypeScript package with:
+  - Common types and interfaces
+  - API endpoint constants
+  - Utility functions
+  - HTTP status codes
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- [Bun](https://bun.sh/) installed on your system
+- [Bun](https://bun.sh) >= 1.0.0
 
 ### Installation
 
-1. Clone the repository
-
 ```bash
-git clone <repository-url>
-cd bun-hono-vue-playground
-```
+# Install all dependencies for all workspaces
+bun install
 
-2. Install dependencies for all packages
-
-```bash
-bun run install:all
+# Build the shared package first
+cd packages/shared && bun run build && cd ../..
 ```
 
 ### Development
 
-Start both frontend and backend in development mode:
-
 ```bash
+# Start both client and server in development mode
 bun run dev
+
+# Or start them individually
+bun run dev:client  # Vue dev server on http://localhost:5173
+bun run dev:server  # Hono server on http://localhost:3000
 ```
 
-This will start:
-
-- **Frontend**: http://localhost:5173 (Vue + Vite dev server)
-- **Backend**: http://localhost:3000 (Hono API server)
-
-### Individual Development Servers
-
-Start only the frontend:
+### Building
 
 ```bash
-bun run dev:client
+# Build all packages
+bun run build
+
+# Or build individually
+bun run build:shared
+bun run build:client
+bun run build:server
 ```
 
-Start only the backend:
+### Testing
 
 ```bash
-bun run dev:server
-```
-
-## 🛠️ Available Scripts
-
-### Root Level Commands
-
-- `bun run dev` - Start both client and server in development mode
-- `bun run dev:client` - Start only the frontend development server
-- `bun run dev:server` - Start only the backend development server
-- `bun run build` - Build both client and server for production
-- `bun run build:client` - Build only the frontend
-- `bun run build:server` - Build only the backend
-- `bun run start` - Start both client and server in production mode
-- `bun run install:all` - Install dependencies for both client and server
-- `bun run test` - Run unit tests
-- `bun run test:e2e` - Run end-to-end tests
-- `bun run lint` - Lint the codebase
-- `bun run format` - Format the codebase
-
-## 🎯 Frontend (Vue 3)
-
-### Tech Stack
-
-- **Vue 3** with Composition API
-- **TypeScript** for type safety
-- **Vue Router** for routing
-- **Pinia** for state management
-- **Vite** for build tooling
-- **Vitest** for unit testing
-- **Cypress** for E2E testing
-- **ESLint + Prettier** for code quality
-
-### Features
-
-- Modern Vue 3 setup with `<script setup>` syntax
-- TypeScript support with proper type checking
-- Hot module replacement (HMR)
-- Component testing with Vitest
-- E2E testing with Cypress
-- Code linting and formatting
-
-## ⚡ Backend (Hono)
-
-### Tech Stack
-
-- **Hono** - Lightweight, fast web framework
-- **Bun** - JavaScript runtime and package manager
-- **TypeScript** for type safety
-
-### API Endpoints
-
-- `GET /` - Hello world endpoint
-- `GET /api/health` - Health check endpoint
-
-### Features
-
-- Hot reloading during development
-- Fast startup and execution with Bun
-- TypeScript support
-- Lightweight and fast API responses
-
-## 📦 Package Management
-
-This project uses **Bun** as the package manager and runtime. Bun provides:
-
-- Fast package installation
-- Built-in bundler and transpiler
-- Hot reloading
-- Native TypeScript support
-
-## 🧪 Testing
-
-### Unit Tests
-
-```bash
+# Run client tests
 bun run test
-```
 
-### End-to-End Tests
-
-```bash
-# Development mode (with GUI)
-bun run test:e2e:dev
-
-# Production mode (headless)
+# Run end-to-end tests
 bun run test:e2e
 ```
 
-## 🏗️ Building for Production
+## 🔄 Shared Package Usage
 
-Build both frontend and backend:
+The `@monorepo/shared` package provides common functionality used by both client and server:
 
-```bash
-bun run build
+### Types
+
+```typescript
+import { User, ApiResponse, HealthResponse } from "@monorepo/shared";
 ```
 
-The frontend will be built to `client/dist/` and the backend to `server/dist/`.
+### Constants
 
-## 🚀 Production Deployment
-
-Start the production servers:
-
-```bash
-bun run start
+```typescript
+import { API_ENDPOINTS, HTTP_STATUS } from "@monorepo/shared";
 ```
 
-This will serve:
+### Utilities
 
-- Frontend: Built static files served via preview server
-- Backend: Compiled Hono application
+```typescript
+import { createSuccessResponse, isValidEmail } from "@monorepo/shared";
+```
 
-## 📖 Development Notes
+## 🎯 Features Demonstrated
 
-- The project uses Bun's native hot reloading for both frontend and backend development
-- Frontend and backend run on different ports during development to enable CORS and independent development
-- Both applications support TypeScript out of the box
-- ESLint and Prettier are configured for consistent code style
+- **Bun Workspaces**: Efficient monorepo dependency management
+- **Shared Types**: Type-safe API contracts between client and server
+- **Cross-workspace imports**: Direct imports from shared package
+- **API Integration**: Vue client consuming Hono API with shared types
+- **Development workflow**: Hot reload for both client and server
+- **TypeScript**: Full type safety across the entire monorepo
 
-## 🤝 Contributing
+## 📁 Adding New Packages
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests and linting
-5. Submit a pull request
+To add a new shared package:
 
----
+```bash
+mkdir packages/new-package
+cd packages/new-package
+# Create package.json with workspace dependencies
+```
 
-Happy coding! 🎉
+To add a new app:
+
+```bash
+mkdir apps/new-app
+cd apps/new-app
+# Create package.json with workspace dependencies
+```
+
+## 🛠️ Scripts
+
+### Root Level
+
+- `bun run dev` - Start client and server concurrently
+- `bun run build` - Build all packages
+- `bun run clean` - Clean all node_modules and dist folders
+- `bun run type-check` - Run TypeScript checks across all packages
+
+### Client (`apps/client`)
+
+- `bun run dev` - Start Vite dev server
+- `bun run build` - Build for production
+- `bun run preview` - Preview production build
+- `bun run test:unit` - Run unit tests
+- `bun run test:e2e` - Run E2E tests
+
+### Server (`apps/server`)
+
+- `bun run dev` - Start server with hot reload
+- `bun run build` - Build for production
+- `bun run start` - Start production server
+
+### Shared (`packages/shared`)
+
+- `bun run build` - Build TypeScript to JavaScript
+- `bun run type-check` - Check types without emitting files
+- `bun run dev` - Build in watch mode
+
+## 🔧 Configuration
+
+- **TypeScript**: Configured with path mapping for shared packages
+- **Vite**: Includes proxy configuration for API calls
+- **ESLint/Prettier**: Consistent code formatting across workspaces
+- **Bun**: Native TypeScript support and fast installs
+
+## 🌟 Benefits of This Setup
+
+1. **Code Sharing**: Eliminate duplication between client and server
+2. **Type Safety**: Shared interfaces ensure API contract consistency
+3. **Fast Development**: Bun's speed for installs and hot reload
+4. **Scalability**: Easy to add new apps or packages
+5. **Maintainability**: Centralized dependency management
+6. **Developer Experience**: Excellent TypeScript support and tooling
