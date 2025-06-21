@@ -1,0 +1,9 @@
+{
+  "name": "@bun-hono-vue-playground/typescript-config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "files": [
+    "*.json"
+  ]
+}

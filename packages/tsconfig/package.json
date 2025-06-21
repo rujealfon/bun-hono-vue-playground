@@ -1,0 +1,8 @@
+{
+  "name": "@bun-hono-vue-playground/tsconfig",
+  "version": "1.0.0",
+  "description": "Shared TypeScript configuration",
+  "files": [
+    "*.json"
+  ]
+}

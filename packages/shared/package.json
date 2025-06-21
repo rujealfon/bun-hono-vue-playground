@@ -1,0 +1,28 @@
+{
+  "name": "@bun-hono-vue-playground/shared",
+  "version": "1.0.0",
+  "description": "Shared types and utilities for the monorepo",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --fix"
+  },
+  "devDependencies": {
+    "@bun-hono-vue-playground/eslint-config": "workspace:*",
+    "@bun-hono-vue-playground/tsconfig": "workspace:*",
+    "typescript": "^5.6.3"
+  }
+}

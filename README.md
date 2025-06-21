@@ -1,203 +1,131 @@
-# Bun + Hono + Vue Playground
+# Bun + Hono + Vue Playground Monorepo
 
-A full-stack web application playground featuring:
+A monorepo setup using Bun workspaces with a Hono API and Vue + Vite client.
 
-- **Frontend**: Vue 3 with TypeScript, Vue Router, Pinia, and Vite
-- **Backend**: Hono (lightweight web framework) running on Bun
-- **Runtime**: Bun for fast package management and execution
+## Features
 
-## 📁 Project Structure
+- Run tasks in parallel across apps / packages with Bun
+- Hono API with Vue.js frontend
+- Shared TypeScript and ESLint configurations
+- Bun workspaces for dependency management
+- Cypress E2E testing
+
+## Tech Stack
+
+### API (`apps/api`)
+
+- Hono
+- TypeScript
+- Bun runtime
+
+### Web (`apps/web`)
+
+- Vue 3
+- Vite
+- TypeScript
+- Pinia for state management
+- Vue Router
+- Cypress for E2E testing
+- Vitest for unit testing
+
+### Shared Packages (`packages/`)
+
+- `@bun-hono-vue-playground/eslint-config` - Shared ESLint configuration
+- `@bun-hono-vue-playground/typescript-config` - Shared TypeScript configurations
+
+## Project Structure
 
 ```
 bun-hono-vue-playground/
-├── client/                 # Vue 3 frontend application
-│   ├── src/
-│   │   ├── components/     # Vue components
-│   │   ├── views/          # Vue route views
-│   │   ├── router/         # Vue Router configuration
-│   │   ├── stores/         # Pinia stores
-│   │   └── assets/         # Static assets
-│   ├── cypress/            # E2E tests
-│   └── package.json
-├── server/                 # Hono backend API
-│   ├── src/
-│   │   └── index.ts        # Main server entry point
-│   └── package.json
-└── package.json           # Root package with workspace scripts
+├── apps/
+│   ├── api/          # Hono API server
+│   └── web/          # Vue.js frontend
+├── packages/
+│   ├── eslint-config/    # Shared ESLint config
+│   └── typescript-config/ # Shared TypeScript configs
+├── package.json      # Root workspace configuration
+└── bunfig.toml      # Bun configuration
 ```
 
-## 🚀 Quick Start
+## Local Setup
 
-### Prerequisites
-
-- [Bun](https://bun.sh/) installed on your system
-
-### Installation
-
-1. Clone the repository
+### Install dependencies
 
 ```bash
-git clone <repository-url>
-cd bun-hono-vue-playground
+bun install
 ```
 
-2. Install dependencies for all packages
+### Start development servers
 
 ```bash
-bun run install:all
-```
-
-### Development
-
-Start both frontend and backend in development mode:
-
-```bash
+# Start both API and web in parallel
 bun run dev
+
+# Or start individually
+bun run dev:web   # Vue.js frontend on http://localhost:5173
+bun run dev:api   # Hono API on http://localhost:8787
 ```
 
-This will start:
-
-- **Frontend**: http://localhost:5173 (Vue + Vite dev server)
-- **Backend**: http://localhost:3000 (Hono API server)
-
-### Individual Development Servers
-
-Start only the frontend:
+### Build applications
 
 ```bash
-bun run dev:client
+# Build both apps
+bun run build
+
+# Or build individually
+bun run build:web
+bun run build:api
 ```
 
-Start only the backend:
+### Run tests
 
 ```bash
-bun run dev:server
-```
-
-## 🛠️ Available Scripts
-
-### Root Level Commands
-
-- `bun run dev` - Start both client and server in development mode
-- `bun run dev:client` - Start only the frontend development server
-- `bun run dev:server` - Start only the backend development server
-- `bun run build` - Build both client and server for production
-- `bun run build:client` - Build only the frontend
-- `bun run build:server` - Build only the backend
-- `bun run start` - Start both client and server in production mode
-- `bun run install:all` - Install dependencies for both client and server
-- `bun run test` - Run unit tests
-- `bun run test:e2e` - Run end-to-end tests
-- `bun run lint` - Lint the codebase
-- `bun run format` - Format the codebase
-
-## 🎯 Frontend (Vue 3)
-
-### Tech Stack
-
-- **Vue 3** with Composition API
-- **TypeScript** for type safety
-- **Vue Router** for routing
-- **Pinia** for state management
-- **Vite** for build tooling
-- **Vitest** for unit testing
-- **Cypress** for E2E testing
-- **ESLint + Prettier** for code quality
-
-### Features
-
-- Modern Vue 3 setup with `<script setup>` syntax
-- TypeScript support with proper type checking
-- Hot module replacement (HMR)
-- Component testing with Vitest
-- E2E testing with Cypress
-- Code linting and formatting
-
-## ⚡ Backend (Hono)
-
-### Tech Stack
-
-- **Hono** - Lightweight, fast web framework
-- **Bun** - JavaScript runtime and package manager
-- **TypeScript** for type safety
-
-### API Endpoints
-
-- `GET /` - Hello world endpoint
-- `GET /api/health` - Health check endpoint
-
-### Features
-
-- Hot reloading during development
-- Fast startup and execution with Bun
-- TypeScript support
-- Lightweight and fast API responses
-
-## 📦 Package Management
-
-This project uses **Bun** as the package manager and runtime. Bun provides:
-
-- Fast package installation
-- Built-in bundler and transpiler
-- Hot reloading
-- Native TypeScript support
-
-## 🧪 Testing
-
-### Unit Tests
-
-```bash
+# Run all tests
 bun run test
-```
 
-### End-to-End Tests
-
-```bash
-# Development mode (with GUI)
-bun run test:e2e:dev
-
-# Production mode (headless)
+# Run E2E tests
 bun run test:e2e
 ```
 
-## 🏗️ Building for Production
-
-Build both frontend and backend:
+### Lint and format
 
 ```bash
-bun run build
+# Lint all apps
+bun run lint
+
+# Format all apps
+bun run format
+
+# Type check all apps
+bun run typecheck
 ```
 
-The frontend will be built to `client/dist/` and the backend to `server/dist/`.
+## Available Scripts
 
-## 🚀 Production Deployment
+All scripts are run from the root of the monorepo:
 
-Start the production servers:
+- `bun run dev` - Start all apps in development mode
+- `bun run build` - Build all apps for production
+- `bun run test` - Run all tests
+- `bun run lint` - Lint all apps
+- `bun run format` - Format all apps
+- `bun run typecheck` - Type check all apps
+- `bun run clean` - Clean all build artifacts
 
-```bash
-bun run start
-```
+## Adding New Apps
 
-This will serve:
+To add a new app to the monorepo:
 
-- Frontend: Built static files served via preview server
-- Backend: Compiled Hono application
+1. Create a new directory in `apps/`
+2. Initialize with `bun init`
+3. Update the app's `package.json` name to follow the pattern: `@bun-hono-vue-playground/app-name`
+4. Use shared configurations from `packages/` where appropriate
 
-## 📖 Development Notes
+## Adding New Packages
 
-- The project uses Bun's native hot reloading for both frontend and backend development
-- Frontend and backend run on different ports during development to enable CORS and independent development
-- Both applications support TypeScript out of the box
-- ESLint and Prettier are configured for consistent code style
+To add a new shared package:
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests and linting
-5. Submit a pull request
-
----
-
-Happy coding! 🎉
+1. Create a new directory in `packages/`
+2. Add a `package.json` with name following the pattern: `@bun-hono-vue-playground/package-name`
+3. Set `"private": true` for internal packages
+4. Reference the new package in apps using `"workspace:*"` version

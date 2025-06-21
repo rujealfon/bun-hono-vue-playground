@@ -1,0 +1,25 @@
+{
+  "name": "@bun-hono-vue-playground/server",
+  "version": "1.0.0",
+  "description": "Hono API server",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "start": "bun run src/index.ts",
+    "build": "bun build src/index.ts --outdir dist --target bun",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --fix",
+    "lint:fix": "eslint src --fix"
+  },
+  "dependencies": {
+    "@bun-hono-vue-playground/shared": "workspace:*",
+    "@hono/node-server": "^1.13.1",
+    "hono": "^4.6.11"
+  },
+  "devDependencies": {
+    "@bun-hono-vue-playground/eslint-config": "workspace:*",
+    "@bun-hono-vue-playground/tsconfig": "workspace:*",
+    "@types/bun": "latest",
+    "typescript": "^5.6.3"
+  }
+}
