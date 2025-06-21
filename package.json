@@ -3,21 +3,28 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "concurrently -c \"#93c5fd,#c4b5fd\" \"cd client && bun run dev\" \"cd server && bun run dev\" --names=\"client,server\" --kill-others-on-fail",
-    "dev:client": "cd client && bun run dev",
-    "dev:server": "cd server && bun run dev",
-    "build": "bun run build:client && bun run build:server",
-    "build:client": "cd client && bun run build",
-    "build:server": "cd server && bun run build",
-    "install:all": "bun run install:client && bun run install:server",
-    "install:client": "cd client && bun install",
-    "install:server": "cd server && bun install",
-    "test": "cd client && bun run test:unit",
-    "test:e2e": "cd client && bun run test:e2e",
-    "lint": "cd client && bun run lint",
-    "format": "cd client && bun run format",
-    "start": "concurrently -c \"#93c5fd,#c4b5fd\" \"cd client && bun run preview\" \"cd server && bun run start\" --names=\"client,server\" --kill-others-on-fail"
+    "dev": "concurrently -c \"#93c5fd,#c4b5fd\" \"cd apps/client && bun run dev\" \"cd apps/server && bun run dev\" --names=\"client,server\" --kill-others-on-fail",
+    "dev:client": "cd apps/client && bun run dev",
+    "dev:server": "cd apps/server && bun run dev",
+    "build": "cd packages/shared && bun run build && cd ../eslint-config && bun run build && cd ../../apps/client && bun run build && cd ../server && bun run build",
+    "build:client": "cd apps/client && bun run build",
+    "build:server": "cd apps/server && bun run build",
+    "test": "cd apps/client && bun run test:unit",
+    "test:client": "cd apps/client && bun run test:unit",
+    "test:e2e": "cd apps/client && bun run test:e2e",
+    "lint": "cd apps/client && bun run lint && cd ../server && bun run lint",
+    "lint:fix": "cd apps/client && bun run lint:fix && cd ../server && bun run lint:fix",
+    "format": "cd apps/client && bun run format",
+    "type-check": "cd apps/client && bun run type-check && cd ../server && bun run type-check",
+    "start": "concurrently -c \"#93c5fd,#c4b5fd\" \"cd apps/client && bun run preview\" \"cd apps/server && bun run start\" --names=\"client,server\" --kill-others-on-fail",
+    "clean": "bun run clean:deps && bun run clean:dist",
+    "clean:deps": "rm -rf node_modules apps/*/node_modules packages/*/node_modules",
+    "clean:dist": "rm -rf apps/*/dist packages/*/dist"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

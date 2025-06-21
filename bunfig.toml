@@ -1,0 +1,13 @@
+[install]
+# Enable workspace support
+workspace = true
+
+# Cache settings
+cache = true
+
+# Prefer exact versions
+exact = true
+
+[test]
+# Use bun test instead of vitest
+preload = ["./test-setup.ts"]
