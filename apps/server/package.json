@@ -7,13 +7,17 @@
     "dev": "bun run --hot src/index.ts",
     "build": "bun build src/index.ts --outdir dist --target bun",
     "start": "bun run dist/index.js",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "hono": "^4.8.1",
     "@monorepo/shared": "workspace:*"
   },
   "devDependencies": {
+    "@monorepo/eslint-config": "workspace:*",
+    "@monorepo/tsconfig": "workspace:*",
     "@types/bun": "latest",
     "typescript": "~5.8.3"
   }

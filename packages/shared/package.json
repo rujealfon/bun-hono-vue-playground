@@ -18,7 +18,9 @@
   "scripts": {
     "build": "bun build src/index.ts --outdir dist --target node --format esm && bun run type-check",
     "type-check": "tsc --noEmit",
-    "dev": "bun build src/index.ts --outdir dist --target node --format esm --watch"
+    "dev": "bun build src/index.ts --outdir dist --target node --format esm --watch",
+    "lint": "echo 'No linting configured for shared package'",
+    "lint:fix": "echo 'No linting configured for shared package'"
   },
   "devDependencies": {
     "@types/bun": "latest",

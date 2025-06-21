@@ -16,14 +16,16 @@
     "build:client": "cd apps/client && bun run build",
     "build:server": "cd apps/server && bun run build",
     "test": "cd apps/client && bun run test:unit",
+    "test:client": "cd apps/client && bun run test:unit",
     "test:e2e": "cd apps/client && bun run test:e2e",
-    "lint": "cd apps/client && bun run lint",
+    "lint": "cd packages/shared && bun run lint && cd ../../apps/client && bun run lint && cd ../server && bun run lint",
+    "lint:fix": "cd packages/shared && bun run lint:fix && cd ../../apps/client && bun run lint:fix && cd ../server && bun run lint:fix",
     "format": "cd apps/client && bun run format",
+    "type-check": "cd packages/shared && bun run type-check && cd ../../apps/client && bun run type-check && cd ../server && bun run type-check",
     "start": "concurrently -c \"#93c5fd,#c4b5fd\" \"cd apps/client && bun run preview\" \"cd apps/server && bun run start\" --names=\"client,server\" --kill-others-on-fail",
     "clean": "bun run clean:deps && bun run clean:dist",
     "clean:deps": "rm -rf node_modules apps/*/node_modules packages/*/node_modules",
-    "clean:dist": "rm -rf apps/*/dist packages/*/dist",
-    "type-check": "cd packages/shared && bun run type-check && cd ../../apps/client && bun run type-check && cd ../server && bun run type-check"
+    "clean:dist": "rm -rf apps/*/dist packages/*/dist"
   },
   "devDependencies": {
     "concurrently": "^9.1.2",
