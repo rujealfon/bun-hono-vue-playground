@@ -3,8 +3,12 @@
   "workspaces": {
     "": {
       "name": "bun-hono-vue-playground",
+      "dependencies": {
+        "dotenv": "^16.5.0",
+        "dotenv-expand": "^12.0.2",
+      },
       "devDependencies": {
-        "concurrently": "^9.1.2",
+        "concurrently": "^9.2.0",
       },
     },
   },
@@ -22,6 +26,10 @@
     "color-name": ["color-name@1.1.4", "", {}, "sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA=="],
 
     "concurrently": ["concurrently@9.2.0", "", { "dependencies": { "chalk": "^4.1.2", "lodash": "^4.17.21", "rxjs": "^7.8.1", "shell-quote": "^1.8.1", "supports-color": "^8.1.1", "tree-kill": "^1.2.2", "yargs": "^17.7.2" }, "bin": { "concurrently": "dist/bin/concurrently.js", "conc": "dist/bin/concurrently.js" } }, "sha512-IsB/fiXTupmagMW4MNp2lx2cdSN2FfZq78vF90LBB+zZHArbIQZjQtzXCiXnvTxCZSvXanTqFLWBjw2UkLx1SQ=="],
+
+    "dotenv": ["dotenv@16.5.0", "", {}, "sha512-m/C+AwOAr9/W1UOIZUo232ejMNnJAJtYQjUbHoNTBNTJSvqzzDh7vnrei3o3r3m9blf6ZoDkvcw0VmozNRFJxg=="],
+
+    "dotenv-expand": ["dotenv-expand@12.0.2", "", { "dependencies": { "dotenv": "^16.4.5" } }, "sha512-lXpXz2ZE1cea1gL4sz2Ipj8y4PiVjytYr3Ij0SWoms1PGxIv7m2CRKuRuCRtHdVuvM/hNJPMxt5PbhboNC4dPQ=="],
 
     "emoji-regex": ["emoji-regex@8.0.0", "", {}, "sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A=="],
 

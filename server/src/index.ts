@@ -1,7 +1,7 @@
 import app from '@/app'
+import env from '@/env'
 
-// eslint-disable-next-line node/no-process-env
-const port = process.env.PORT || 3000
+const port = env.SERVER_PORT
 
 export default {
   port,
