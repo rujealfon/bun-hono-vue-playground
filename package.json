@@ -18,11 +18,17 @@
     "clean:dist": "rm -rf client/dist server/dist",
     "test": "cd client && bun run test:unit",
     "test:e2e": "cd client && bun run test:e2e",
-    "lint": "cd client && bun run lint",
+    "lint": "bun run lint:client && bun run lint:server",
+    "lint:client": "cd client && bun run lint",
+    "lint:server": "cd server && bun run lint",
     "format": "cd client && bun run format",
     "start": "concurrently -c \"#93c5fd,#c4b5fd\" \"cd client && bun run preview\" \"cd server && bun run start\" --names=\"client,server\" --kill-others-on-fail"
   },
   "devDependencies": {
     "concurrently": "^9.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "dotenv-expand": "^12.0.2"
   }
 }
