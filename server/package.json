@@ -1,5 +1,7 @@
 {
   "name": "server",
+  "type": "module",
+  "version": "1.0.0",
   "scripts": {
     "dev": "bun run type-check && bun run --hot src/index.ts",
     "dev:no-check": "bun run --hot src/index.ts",

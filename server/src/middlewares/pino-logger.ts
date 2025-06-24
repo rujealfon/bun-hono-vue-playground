@@ -1,6 +1,6 @@
 import { pinoLogger as logger } from 'hono-pino'
 import pino from 'pino'
-import * as pretty from 'pino-pretty'
+import pretty from 'pino-pretty'
 
 import env from '@/env'
 
