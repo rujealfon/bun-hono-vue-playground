@@ -1,31 +1,17 @@
-import type { PinoLogger } from 'hono-pino'
+import configureOpenAPI from '@/lib/configure-open-api'
+import createApp from '@/lib/create-app'
+import indexRoute from '@/routes/index.route'
 
-import { OpenAPIHono } from '@hono/zod-openapi'
-import { notFound, onError, serveEmojiFavicon } from 'stoker/middlewares'
+const app = createApp()
 
-import { pinoLogger } from '@/middlewares/pino-logger'
+const routes = [
+  indexRoute,
+]
 
-interface AppBindings {
-  Variables: {
-    logger: PinoLogger
-  }
-}
+configureOpenAPI(app)
 
-const app = new OpenAPIHono<AppBindings>()
-app.use(serveEmojiFavicon('📝'))
-app.use(pinoLogger())
-
-app.get('/', (c) => {
-  c.var.logger.warn('Hello Hono!')
-  return c.text('Hello Hono!')
+routes.forEach((route) => {
+  app.route('/', route)
 })
-
-app.get('/api/health', (c) => {
-  return c.json({ status: 'ok', timestamp: new Date().toISOString() })
-})
-
-app.notFound(notFound)
-
-app.onError(onError)
 
 export default app
