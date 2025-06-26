@@ -1,27 +1,28 @@
 import { createRoute } from '@hono/zod-openapi'
-import { z } from 'zod'
+import * as HttpStatusCodes from '@rujealfon/stoker/http-status-codes'
+import { jsonContent } from '@rujealfon/stoker/openapi/helpers'
+import { createMessageObjectSchema } from '@rujealfon/stoker/openapi/schemas'
 
 import { createRouter } from '@/lib/create-app'
 
-const router = createRouter().openapi(createRoute({
-  method: 'get',
-  path: '/',
-  responses: {
-    200: {
-      content: {
-        'application/json': {
-          schema: z.object({
-            message: z.string(),
-          }),
-        },
+const router = createRouter()
+  .openapi(
+    createRoute({
+      tags: ['Index'],
+      method: 'get',
+      path: '/',
+      responses: {
+        [HttpStatusCodes.OK]: jsonContent(
+          createMessageObjectSchema('Task API'),
+          'Task API Index',
+        ),
       },
-      description: 'Task API Index',
+    }),
+    (c) => {
+      return c.json({
+        message: 'Task API',
+      }, HttpStatusCodes.OK)
     },
-  },
-}), (c) => {
-  return c.json({
-    message: 'Task API',
-  })
-})
+  )
 
 export default router
