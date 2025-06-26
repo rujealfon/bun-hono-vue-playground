@@ -1,6 +1,6 @@
 import { Scalar } from '@scalar/hono-api-reference'
 
-import type { AppOpenAPI } from '@/lib/types'
+import type { AppBindings, AppOpenAPI } from '@/lib/types'
 
 import packageJSON from '../../package.json'
 
@@ -13,7 +13,7 @@ export default function configureOpenAPI(app: AppOpenAPI) {
     },
   })
 
-  app.get('/reference', Scalar({
+  app.get('/reference', Scalar<AppBindings>({
     theme: 'deepSpace',
     layout: 'classic',
     defaultHttpClient: {
